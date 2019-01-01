@@ -6,5 +6,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'todo';
+  title = 'Simple Todo App';
+  newTodo = '';
+  todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+  addTodo() {
+    this.todos.push(this.newTodo);
+    this.updateLocalStorage();
+    this.newTodo = '';
+  }
+
+  deleteTodo(deleteTodoIndex: number) {
+    this.todos.splice(deleteTodoIndex, 1);
+    this.updateLocalStorage();
+  }
+
+  updateLocalStorage() {
+    localStorage.setItem('todos', JSON.stringify(this.todos));
+  }
 }
